@@ -1,6 +1,6 @@
 
 <template>
-  <div class="max-w-sm rounded overflow-hidden shadow-lg m-2">
+  <div class="max-w-sm rounded overflow-hidden shadow-lg m-2 w-full md:w-1/4">
     <img
       class="w-full"
       src="https://source.unsplash.com/random/1200x600"

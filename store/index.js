@@ -33,9 +33,13 @@ const store = () =>
           })
       },
 
-      fetchPosts({ commit }) {
+      fetchPosts({ commit }, params) {
         return this.$axios
-          .get('/wp/v2/posts')
+          .get('/wp/v2/posts', {
+            params: {
+              order: params.order
+            }
+          })
           .then(({ data }) => {
             commit('setPosts', data)
             return data
