@@ -25,7 +25,7 @@ const store = () =>
     actions: {
       fetchPost({ commit }, params) {
         return this.$axios
-          .get('/wp/v2/posts', {
+          .get('/wp/v2/posts?_embed', {
             params: {
               slug: params.post
             }
@@ -41,7 +41,7 @@ const store = () =>
 
       fetchPosts({ commit }, params) {
         return this.$axios
-          .get('/wp/v2/posts', {
+          .get('/wp/v2/posts?_embed', {
             params: {
               order: params.order
             }

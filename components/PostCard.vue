@@ -2,8 +2,9 @@
 <template>
   <div class="max-w-sm rounded overflow-hidden shadow-lg m-2 w-full md:w-1/4">
     <img
+      v-if="featuredImage"
+      :src="featuredImage"
       class="w-full"
-      src="https://source.unsplash.com/random/1200x600"
       alt="Sunset in the mountains">
     <div class="px-6 py-4">
       <div class="font-bold text-xl mb-2">
@@ -26,6 +27,15 @@ export default {
     post: {
       type: Object,
       required: true
+    }
+  },
+
+  computed: {
+    featuredImage() {
+      if (this.post._embedded['wp:featuredmedia']) {
+        return this.post._embedded['wp:featuredmedia'][0].media_details.sizes
+          .medium.source_url
+      }
     }
   }
 }

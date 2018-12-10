@@ -1,7 +1,9 @@
 <template>
-  <section class="container">
+  <section class="container mb-4">
     <div v-if="!hasPosts">
-      <fa icon="spinner" spin />
+      <fa 
+        icon="spinner" 
+        spin />
       Loading ...
     </div>
     <div v-else>
@@ -35,9 +37,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters([
-      'hasPosts'
-    ])
+    ...mapGetters(['hasPosts'])
   },
 
   mounted() {

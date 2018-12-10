@@ -1,9 +1,10 @@
 <template>
-  <section class="container">
+  <section class="container mb-4">
     <div class="w-full">
       <img
+        v-if="featuredImage"
+        :src="featuredImage"
         class="w-full"
-        src="https://source.unsplash.com/random/1200x600"
         alt="Sunset in the mountains">
     </div>
 
@@ -12,7 +13,7 @@
     </h1>
 
     <div class="text-grey-darker text-base mb-4">
-      Published on {{ date }}
+      Published on <strong>{{ date }}</strong> by <strong>{{ author }}</strong> in <strong>{{ category }}</strong>
     </div>
 
     <div v-html="post.content.rendered"/>
@@ -39,6 +40,22 @@ export default {
 
     date() {
       return moment(this.post.date).format('dddd, MMMM Do YYYY, h:mm:ss a')
+    },
+
+    featuredImage() {
+      if (this.post._embedded['wp:featuredmedia']) {
+        return this.post._embedded['wp:featuredmedia'][0].source_url
+      }
+    },
+
+    category() {
+      if (this.post._embedded['wp:term']) {
+        return this.post._embedded['wp:term'][0][0].name
+      }
+    },
+
+    author() {
+      return this.post._embedded['author'][0].name
     }
   }
 }
