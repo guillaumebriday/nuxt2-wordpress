@@ -7,12 +7,6 @@ const store = () =>
       posts: []
     },
 
-    getters: {
-      hasPosts: state => {
-        return state.posts.length !== 0
-      }
-    },
-
     mutations: {
       setPost(state, data) {
         state.post = data

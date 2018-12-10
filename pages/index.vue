@@ -1,11 +1,12 @@
 <template>
   <section class="container mb-4">
-    <div v-if="!hasPosts">
-      <fa 
-        icon="spinner" 
+    <div v-if="isLoading">
+      <fa
+        icon="spinner"
         spin />
       Loading ...
     </div>
+
     <div v-else>
       <div class="m-2 mb-4">
         Sort by:
@@ -29,15 +30,16 @@
 
 <script>
 import PostList from '~/components/PostList.vue'
-import { mapGetters } from 'vuex'
 
 export default {
   components: {
     PostList
   },
 
-  computed: {
-    ...mapGetters(['hasPosts'])
+  data() {
+    return {
+      isLoading: false
+    }
   },
 
   mounted() {
@@ -46,7 +48,11 @@ export default {
 
   methods: {
     fetchPosts(order = null) {
-      this.$store.dispatch('fetchPosts', { order: order })
+      this.isLoading = true
+
+      this.$store.dispatch('fetchPosts', { order: order }).then(response => {
+        this.isLoading = false
+      })
     }
   }
 }
