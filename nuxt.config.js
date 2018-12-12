@@ -46,8 +46,15 @@ module.exports = {
       {
         id: 'UA-54003772-11'
       }
-    ]
+    ],
+    'nuxt-purgecss'
   ],
+
+  purgeCSS: {
+    mode: 'postcss',
+    whitelistPatterns: [/fa/, /page-/]
+  },
+
   /*
   ** Axios module configuration
   */
@@ -60,8 +67,11 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    /*
-    ** You can extend webpack config here
-    */
+    postcss: {
+      plugins: {
+        tailwindcss: './tailwind.js',
+        autoprefixer: {}
+      }
+    }
   }
 }
