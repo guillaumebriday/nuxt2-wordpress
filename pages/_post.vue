@@ -22,7 +22,7 @@
 
 <script>
 import PostList from '~/components/PostList.vue'
-import moment from 'moment'
+import { parse, format } from 'date-fns'
 
 export default {
   components: {
@@ -39,7 +39,7 @@ export default {
     },
 
     date() {
-      return moment(this.post.date).format('dddd, MMMM Do YYYY, h:mm:ss a')
+      return format(parse(this.post.date), 'dddd, MMMM Do YYYY, h:mm:ss a')
     },
 
     featuredImage() {
