@@ -1,12 +1,12 @@
 <template>
   <section class="container mb-4">
     <div class="w-full">
-      <img
+      <progressive-img
         v-if="featuredImage"
-        :src="featuredImage"
+        :src="featuredImage.source_url"
+        :placeholder="featuredImage.media_details.sizes.thumbnail.source_url"
         class="w-full"
-        alt="Sunset in the mountains">
-    </div>
+        :alt="featuredImage.alt_text"/></div>
 
     <h1 class="mb-2">
       {{ post.title.rendered }}
@@ -44,7 +44,7 @@ export default {
 
     featuredImage() {
       if (this.post._embedded['wp:featuredmedia']) {
-        return this.post._embedded['wp:featuredmedia'][0].source_url
+        return this.post._embedded['wp:featuredmedia'][0]
       }
     },
 

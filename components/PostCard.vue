@@ -5,7 +5,7 @@
       v-if="featuredImage"
       :src="featuredImage"
       class="w-full"
-      alt="Sunset in the mountains">
+      :alt="featuredImage.alt_text">
     <div class="px-6 py-4">
       <div class="font-bold text-xl mb-2">
         {{ post.title.rendered }}
