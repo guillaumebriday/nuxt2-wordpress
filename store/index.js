@@ -3,11 +3,15 @@ import Vuex from 'vuex'
 const store = () =>
   new Vuex.Store({
     state: {
+      meta: null,
       post: null,
       posts: []
     },
 
     mutations: {
+      setMeta(state, data) {
+        state.meta = data
+      },
       setPost(state, data) {
         state.post = data
       },
@@ -17,6 +21,11 @@ const store = () =>
     },
 
     actions: {
+      async nuxtServerInit({ commit }) {
+        let meta = await this.$axios.get('/')
+        commit('setMeta', meta.data)
+      },
+
       fetchPost({ commit }, params) {
         return this.$axios
           .get('/wp/v2/posts?_embed', {

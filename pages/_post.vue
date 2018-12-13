@@ -33,6 +33,12 @@ export default {
     await store.dispatch('fetchPost', params)
   },
 
+  head() {
+    return {
+      title: `${this.post.title.rendered} | ${this.$store.state.meta.name}`
+    }
+  },
+
   computed: {
     post() {
       return this.$store.state.post
