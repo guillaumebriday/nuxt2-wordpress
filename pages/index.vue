@@ -46,8 +46,8 @@ export default {
     }
   },
 
-  mounted() {
-    this.fetchPosts()
+  async asyncData({ store }) {
+    await store.dispatch('fetchPosts')
   },
 
   methods: {

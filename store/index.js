@@ -42,7 +42,7 @@ const store = () =>
           })
       },
 
-      fetchPosts({ commit }, params) {
+      fetchPosts({ commit }, params = {}) {
         return this.$axios
           .get('/wp/v2/posts?_embed', {
             params: {
