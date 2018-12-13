@@ -7,9 +7,8 @@
       class="w-full"
       :alt="featuredImage.alt_text">
     <div class="px-6 py-4">
-      <div class="font-bold text-xl mb-2">
-        {{ post.title.rendered }}
-      </div>
+      <h2 class="font-bold text-xl mb-2" v-html="post.title.rendered"></h2>
+
       <div
         class="text-grey-darker text-base mb-2"
         v-html="post.excerpt.rendered"/>

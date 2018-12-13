@@ -8,9 +8,7 @@
         class="w-full"
         :alt="featuredImage.alt_text"/></div>
 
-    <h1 class="mb-2">
-      {{ post.title.rendered }}
-    </h1>
+    <h1 class="mb-2" v-html="post.title.rendered"></h1>
 
     <div class="text-grey-darker text-base mb-4">
       Published on <strong>{{ date }}</strong> by <strong>{{ author }}</strong> in <strong>{{ category }}</strong>
