@@ -1,0 +1,50 @@
+image: "node:11-alpine"
+
+stages:
+  - build
+  - deploy
+
+variables:
+  IMAGE_TAG: registry.gitlab.com/guillaumebriday/nuxt2-wordpress:nuxt2-wordpress
+  REGISTRY_URL: registry.gitlab.com
+
+# Stage: Build
+build_image:
+  stage: build
+  image: docker:stable
+  services:
+    - docker:dind
+  script:
+    - docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${CI_REGISTRY}
+    - docker build -f .cloud/docker/Dockerfile -t ${IMAGE_TAG} .
+    - docker push ${IMAGE_TAG}
+
+# Stage: deploy
+.setup_deploy_env: &setup_deploy_env
+  image: kroniak/ssh-client
+  before_script:
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan -H 'guillaumebriday.xyz' >> ~/.ssh/known_hosts
+
+deploy_prod:
+  <<: *setup_deploy_env
+  stage: deploy
+  script:
+    # log into Docker registry
+    - ssh root@guillaumebriday.xyz "docker login -u gitlab-ci-token -p ${CI_JOB_TOKEN} ${REGISTRY_URL}"
+    - ssh root@guillaumebriday.xyz "docker pull ${IMAGE_TAG}"
+
+    # stop containers, remove image.
+    - ssh root@guillaumebriday.xyz "docker stop nuxt2-wordpress" || true
+
+    # start new containers
+    - ssh root@guillaumebriday.xyz \
+      "docker run --rm --name nuxt2-wordpress -d -l traefik.frontend.rule=Host::immobilier.guillaumebriday.xyz ${IMAGE_TAG}"
+  only:
+    - master
+  environment:
+    name: production
+    url: https://immobilier.guillaumebriday.xyz/
