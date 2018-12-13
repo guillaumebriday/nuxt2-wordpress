@@ -1,26 +1,30 @@
 <template>
   <section class="container mb-4">
-    <div v-if="isLoading">
-      <fa
-        icon="spinner"
-        spin />
-      Loading ...
-    </div>
+    <div>
+      <div class="m-2 mb-4 flex justify-between align-baseline">
+        <div>
+          Sort by:
 
-    <div v-else>
-      <div class="m-2 mb-4">
-        Sort by:
-        <button
-          class="bg-orange hover:bg-orange-dark text-white font-bold py-2 px-4 rounded"
-          @click="fetchPosts('asc')">
-          Older
-        </button>
+          <button
+            class="bg-orange hover:bg-orange-dark text-white font-bold py-2 px-4 rounded"
+            @click="fetchPosts('asc')">
+            Older
+          </button>
 
-        <button
-          class="bg-orange hover:bg-orange-dark text-white font-bold py-2 px-4 rounded"
-          @click="fetchPosts('desc')">
-          Newer
-        </button>
+          <button
+            class="bg-orange hover:bg-orange-dark text-white font-bold py-2 px-4 rounded"
+            @click="fetchPosts('desc')">
+            Newer
+          </button>
+
+        </div>
+
+        <div v-if="isLoading">
+          <fa
+            icon="spinner"
+            spin />
+          Loading ...
+        </div>
       </div>
 
       <PostList :posts="$store.state.posts" />

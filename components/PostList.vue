@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap">
+  <div class="flex flex-wrap -mx-2">
     <PostCard
       v-for="(post, index) in posts"
       :key="index"

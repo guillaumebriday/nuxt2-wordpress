@@ -5,10 +5,12 @@
         v-if="featuredImage"
         :src="featuredImage.source_url"
         :placeholder="featuredImage.media_details.sizes.thumbnail.source_url"
-        class="w-full"
-        :alt="featuredImage.alt_text"/></div>
+        :alt="featuredImage.alt_text"
+        class="w-full"/></div>
 
-    <h1 class="mb-2" v-html="post.title.rendered"></h1>
+    <h1
+      class="mb-2"
+      v-html="post.title.rendered"/>
 
     <div class="text-grey-darker text-base mb-4">
       Published on <strong>{{ date }}</strong> by <strong>{{ author }}</strong> in <strong>{{ category }}</strong>
