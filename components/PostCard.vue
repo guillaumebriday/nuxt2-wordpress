@@ -4,7 +4,7 @@
     <div class="rounded overflow-hidden shadow-lg flex flex-col bg-white h-full">
       <img
         v-if="featuredImage"
-        :src="featuredImage"
+        :src="featuredImage.media_details.sizes.medium.source_url"
         :alt="featuredImage.alt_text"
         class="w-full">
 
@@ -41,8 +41,7 @@ export default {
   computed: {
     featuredImage() {
       if (this.post._embedded['wp:featuredmedia']) {
-        return this.post._embedded['wp:featuredmedia'][0].media_details.sizes
-          .medium.source_url
+        return this.post._embedded['wp:featuredmedia'][0]
       }
     }
   }
