@@ -4,6 +4,12 @@ const store = () =>
   new Vuex.Store({
     state: {
       meta: null,
+      isLoading: false,
+      pagination: {
+        count: 0,
+        totalPages: 1,
+        currentPage: 1
+      },
       post: null,
       posts: []
     },
@@ -17,6 +23,12 @@ const store = () =>
       },
       setPosts(state, data) {
         state.posts = data
+      },
+      setPagination(state, data) {
+        state.pagination = data
+      },
+      setLoading(state, data) {
+        state.isLoading = data
       }
     },
 
@@ -41,12 +53,21 @@ const store = () =>
       },
 
       fetchPosts({ commit }, params = {}) {
+        commit('setLoading', true)
+
         return this.$axios
           .get('/wp/v2/posts?_embed', {
             params: params
           })
-          .then(({ data }) => {
+          .then(({ data, headers }) => {
+            commit('setLoading', false)
             commit('setPosts', data)
+            commit('setPagination', {
+              count: headers['x-wp-total'],
+              totalPages: headers['x-wp-totalpages'],
+              currentPage: params.page || 1
+            })
+
             return data
           })
           .catch(error => {

@@ -16,19 +16,19 @@
             Sort by:
             <button
               class="bg-orange hover:bg-orange-dark text-white font-bold py-2 px-4 rounded"
-              @click="fetchPosts({ order: 'asc' })">
+              @click="$store.dispatch('fetchPosts', { order: 'asc' })">
               Older
             </button>
 
             <button
               class="bg-orange hover:bg-orange-dark text-white font-bold py-2 px-4 rounded"
-              @click="fetchPosts({ order: 'desc' })">
+              @click="$store.dispatch('fetchPosts', { order: 'desc' })">
               Newer
             </button>
           </div>
         </div>
 
-        <div v-if="isLoading">
+        <div v-if="$store.state.isLoading">
           <fa
             icon="spinner"
             spin />
@@ -36,23 +36,26 @@
         </div>
       </div>
 
-      <PostList :posts="$store.state.posts" />
+      <post-pagination />
+
+      <post-list :posts="$store.state.posts" />
     </div>
   </section>
 </template>
 
 <script>
-import PostList from '~/components/PostList.vue'
+import PostList from '~/components/Posts/PostList'
+import PostPagination from '~/components/Posts/PostPagination'
 import { debounce } from 'lodash'
 
 export default {
   components: {
-    PostList
+    PostList,
+    PostPagination
   },
 
   data() {
     return {
-      isLoading: false,
       searchForm: null
     }
   },
@@ -62,16 +65,8 @@ export default {
   },
 
   methods: {
-    fetchPosts(params) {
-      this.isLoading = true
-
-      this.$store.dispatch('fetchPosts', params).then(response => {
-        this.isLoading = false
-      })
-    },
-
     handleSearch: debounce(function() {
-      this.fetchPosts({ search: this.searchForm })
+      this.$store.dispatch('fetchPosts', { search: this.searchForm })
     }, 300)
   }
 }
