@@ -21,7 +21,13 @@ export default {
   head() {
     return {
       title: `${this.$store.state.meta.name}`,
-      meta: [{ hid: 'description', name: 'description', content: this.$store.state.meta.description }]
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.$store.state.meta.description
+        }
+      ]
     }
   }
 }
