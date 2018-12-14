@@ -38,7 +38,8 @@ module.exports = {
   */
   plugins: [
     '~/plugins/fontawesome.js',
-    { src: '~plugins/vue-progressive-image.js', ssr: false }
+    { src: '~plugins/vue-progressive-image.js', ssr: false },
+    '~plugins/vue-currency-filter.js'
   ],
 
   /*

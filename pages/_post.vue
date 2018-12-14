@@ -16,6 +16,11 @@
       Published on <strong>{{ date }}</strong> by <strong>{{ author }}</strong> in <strong>{{ category }}</strong>
     </div>
 
+    <div v-if="post.acf.contract_type || post.acf.price" class="text-base mb-4">
+      <p>Type de contrat : <strong>{{ post.acf.contract_type }}</strong></p>
+      <p>Prix : <strong>{{ post.acf.price | currency }}</strong></p>
+    </div>
+
     <div v-html="post.content.rendered"/>
   </section>
 </template>
