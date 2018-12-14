@@ -28,14 +28,9 @@
 </template>
 
 <script>
-import PostList from '~/components/PostList.vue'
 import { parse, format } from 'date-fns'
 
 export default {
-  components: {
-    PostList
-  },
-
   async asyncData({ store, params }) {
     await store.dispatch('fetchPost', { slug: params.post })
   },
