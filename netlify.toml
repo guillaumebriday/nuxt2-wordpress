@@ -1,6 +1,0 @@
-[build]
-  command = "yarn generate"
-  publish = "dist"
-
-[build.environment]
-  CI = "true"
