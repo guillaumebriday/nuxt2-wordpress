@@ -42,7 +42,7 @@ deploy_prod:
 
     # start new containers
     - ssh root@guillaumebriday.xyz \
-      "docker run --rm --name nuxt2-wordpress -d -l traefik.frontend.rule=Host::immobilier.guillaumebriday.xyz ${IMAGE_TAG}"
+      "docker run --rm --name nuxt2-wordpress -d -l traefik.frontend.rule=Host:immobilier.guillaumebriday.xyz ${IMAGE_TAG}"
   only:
     - master
   environment:
