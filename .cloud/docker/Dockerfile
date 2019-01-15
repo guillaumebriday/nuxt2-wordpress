@@ -21,9 +21,9 @@ RUN yarn install
 COPY . .
 
 # Build Nuxt app
-RUN yarn build -q
+RUN yarn build:modern -q
 
 # Expose the app's port
 EXPOSE 3000
 
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "start:modern" ]
